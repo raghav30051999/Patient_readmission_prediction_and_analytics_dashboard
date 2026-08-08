@@ -1,6 +1,9 @@
 # 🏥 Patient Readmission Prediction using Machine Learning (ML) along with Analytics Dashboard
 
-> An end-to-end Machine Learning and Business Intelligence platform for predicting 30-day hospital readmissions along with recommendations and also provides Analytics Dashboard with Impactful Insights.
+Wanna try this ? 
+
+[![Live Demo](https://img.shields.io/badge/%20Live%20Demo-Try%20Now-red?style=for-the-badge&logo=streamlit)](https://patient-readmission-prediction-and-dashboard.streamlit.app/)
+ 
 
 ---
 
