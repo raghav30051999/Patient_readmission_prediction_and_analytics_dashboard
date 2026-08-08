@@ -277,18 +277,51 @@ with tab1:
 
 with tab2:
 
-    st.markdown('<div class="form-section">Upload Patient Data</div>', unsafe_allow_html=True)
+    st.markdown(
+        """
+<div style="
+padding:40px;
+border-radius:18px;
+background:#FFFFFF;
+border:1px solid #E5E7EB;
+text-align:center;
+margin-top:20px;
+">
 
-    uploaded_file = st.file_uploader(
-        "Upload CSV File",
-        type=["csv"]
+<h2 style="color:#0F172A;">
+🚧 Batch Prediction
+</h2>
+
+<p style="
+font-size:18px;
+color:#64748B;
+margin-top:10px;
+">
+
+This feature is currently under development.
+
+</p>
+
+<p style="
+color:#94A3B8;
+font-size:15px;
+max-width:650px;
+margin:auto;
+line-height:1.8;
+">
+
+Batch Prediction will allow healthcare professionals to upload a CSV file
+containing multiple patient records and generate readmission predictions
+for all patients in a single click.
+
+This feature will be available in a future release.
+
+</p>
+
+</div>
+""",
+        unsafe_allow_html=True
     )
-
-    batch_predict = st.button(
-        "Predict Batch",
-        use_container_width=True
-    )
-
 # ==========================================================
 # LOAD MODEL
 # ==========================================================
