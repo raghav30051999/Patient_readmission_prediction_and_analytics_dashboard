@@ -140,7 +140,9 @@ du.section_heading(
 
 uploaded_file = st.file_uploader(
     "Upload CSV file",
-    type=["csv"]
+    type=["csv"],
+    label_visibility="collapsed",
+    key="batch_csv_uploader"
 )
 
 if uploaded_file is not None:
