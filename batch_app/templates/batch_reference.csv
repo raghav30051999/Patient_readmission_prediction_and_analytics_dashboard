@@ -1,0 +1,78 @@
+column_name,data_type,required,allowed_values,range_or_format,example,description
+admission_id,string_id,yes,,,bcb311d6-0808-498f-8ae1-11abe1fbc08e,Unique admission identifier
+patient_id,string_id,yes,,,6960d399-8398-4db4-9a90-0b329b81bc2b,Unique patient identifier
+admit_date,date,yes,,DD-MM-YYYY,23-01-2024,Patient admission date
+discharge_date,date,yes,,DD-MM-YYYY,27-01-2024,Patient discharge date
+los_days,integer,yes,,0 to 365,5,Length of stay in days
+admit_type,categorical,no,Elective|Emergency|OPD|Others,Elective|Emergency|OPD|Others,Elective,Admission type
+ward_type,categorical,no,General|HDU|ICU|NICU|Others,General|HDU|ICU|NICU|Others,General,Ward type
+hospital_id,string_id,yes,,,b22e7b51-2ea6-4611-a8e5-d3d24ec779d8,Unique hospital identifier
+discharge_type,categorical,no,Expired|LAMA|Others|Recovered|Referred,Expired|LAMA|Others|Recovered|Referred,Recovered,Discharge outcome/status
+num_procedures,integer,no,,0 to 100,1,Number of procedures performed
+charlson_index,integer,no,,0 to 20,2,Charlson comorbidity index
+hba1c,float,yes,,3 to 20,5.7,HbA1c lab value
+creatinine,float,yes,,0.2 to 20,0.91,Creatinine lab value
+haemoglobin,float,yes,,3 to 25,11.9,Haemoglobin lab value
+systolic_bp,float,yes,,50 to 300,134,Systolic blood pressure
+age,integer,yes,,0 to 120,51,Patient age
+gender,categorical,yes,F|M|Other,F|M|Other,M,Patient gender
+state_x,categorical,no,Andhra Pradesh|Bihar|Gujarat|Haryana|Karnataka|Kerala|Madhya Pradesh|Maharashtra|Odisha|Punjab|Rajasthan|Tamil Nadu|Telangana|Uttar Pradesh|West Bengal,Andhra Pradesh|Bihar|Gujarat|Haryana|Karnataka|Kerala|Madhya Pradesh|Maharashtra|Odisha|Punjab|Rajasthan|Tamil Nadu|Telangana|Uttar Pradesh|West Bengal,Haryana,Patient state
+bpl_card,boolean,no,TRUE|FALSE,TRUE|FALSE,FALSE,Whether patient has BPL card
+insurance_type,categorical,no,Ayushman|ESI|Others|Private,Ayushman|ESI|Others|Private,ESI,Insurance type
+comorbidity_count,integer,no,,0 to 20,1,Number of comorbidities
+prev_admissions,integer,no,,0 to 50,1,Number of previous admissions
+has_Cardiovascular,binary,no,0|1,0|1,0,Comorbidity category flag: 0 or 1
+has_Endocrine,binary,no,0|1,0|1,1,Comorbidity category flag: 0 or 1
+has_Gastrointestinal,binary,no,0|1,0|1,0,Comorbidity category flag: 0 or 1
+has_Genitourinary,binary,no,0|1,0|1,0,Comorbidity category flag: 0 or 1
+has_Infectious,binary,no,0|1,0|1,0,Comorbidity category flag: 0 or 1
+has_Injury,binary,no,0|1,0|1,0,Comorbidity category flag: 0 or 1
+has_Neoplasm,binary,no,0|1,0|1,0,Comorbidity category flag: 0 or 1
+has_Neurological,binary,no,0|1,0|1,0,Comorbidity category flag: 0 or 1
+has_Obstetric,binary,no,0|1,0|1,0,Comorbidity category flag: 0 or 1
+has_Perinatal,binary,no,0|1,0|1,0,Comorbidity category flag: 0 or 1
+has_Respiratory,binary,no,0|1,0|1,0,Comorbidity category flag: 0 or 1
+dx_acute_myocardial_infarction,binary,no,0|1,0|1,0,Diagnosis flag: 0 or 1
+dx_alcoholic_liver_disease,binary,no,0|1,0|1,0,Diagnosis flag: 0 or 1
+dx_asthma,binary,no,0|1,0|1,0,Diagnosis flag: 0 or 1
+dx_atrial_fibrillation,binary,no,0|1,0|1,0,Diagnosis flag: 0 or 1
+dx_copd,binary,no,0|1,0|1,0,Diagnosis flag: 0 or 1
+dx_cerebral_infarction,binary,no,0|1,0|1,0,Diagnosis flag: 0 or 1
+dx_cholelithiasis,binary,no,0|1,0|1,0,Diagnosis flag: 0 or 1
+dx_chronic_kidney_disease,binary,no,0|1,0|1,0,Diagnosis flag: 0 or 1
+dx_dengue_haemorrhagic_fever,binary,no,0|1,0|1,0,Diagnosis flag: 0 or 1
+dx_disorders_short_gestation,binary,no,0|1,0|1,0,Diagnosis flag: 0 or 1
+dx_diverticular_disease_of_colon,binary,no,0|1,0|1,0,Diagnosis flag: 0 or 1
+dx_epilepsy,binary,no,0|1,0|1,0,Diagnosis flag: 0 or 1
+dx_essential_hypertension,binary,no,0|1,0|1,0,Diagnosis flag: 0 or 1
+dx_fracture_of_femur,binary,no,0|1,0|1,0,Diagnosis flag: 0 or 1
+dx_gastroenteritis_and_colitis,binary,no,0|1,0|1,0,Diagnosis flag: 0 or 1
+dx_heart_failure,binary,no,0|1,0|1,0,Diagnosis flag: 0 or 1
+dx_intracranial_injury,binary,no,0|1,0|1,0,Diagnosis flag: 0 or 1
+dx_malignant_neoplasm_breast,binary,no,0|1,0|1,0,Diagnosis flag: 0 or 1
+dx_malignant_neoplasm_colon,binary,no,0|1,0|1,0,Diagnosis flag: 0 or 1
+dx_malignant_neoplasm_lung,binary,no,0|1,0|1,0,Diagnosis flag: 0 or 1
+dx_maternal_care_uterine_anomaly,binary,no,0|1,0|1,0,Diagnosis flag: 0 or 1
+dx_metabolic_electrolyte_disorder,binary,no,0|1,0|1,1,Diagnosis flag: 0 or 1
+dx_multiple_sclerosis,binary,no,0|1,0|1,0,Diagnosis flag: 0 or 1
+dx_pneumonia_unspecified,binary,no,0|1,0|1,0,Diagnosis flag: 0 or 1
+dx_pulmonary_tuberculosis,binary,no,0|1,0|1,0,Diagnosis flag: 0 or 1
+dx_respiratory_distress_newborn,binary,no,0|1,0|1,0,Diagnosis flag: 0 or 1
+dx_respiratory_failure,binary,no,0|1,0|1,0,Diagnosis flag: 0 or 1
+dx_sepsis,binary,no,0|1,0|1,0,Diagnosis flag: 0 or 1
+dx_single_spontaneous_delivery,binary,no,0|1,0|1,0,Diagnosis flag: 0 or 1
+dx_type_1_diabetes_mellitus,binary,no,0|1,0|1,0,Diagnosis flag: 0 or 1
+dx_type_2_diabetes_mellitus,binary,no,0|1,0|1,0,Diagnosis flag: 0 or 1
+dx_unspecified_injury,binary,no,0|1,0|1,0,Diagnosis flag: 0 or 1
+dx_unspecified_malaria,binary,no,0|1,0|1,0,Diagnosis flag: 0 or 1
+dx_urinary_tract_infection,binary,no,0|1,0|1,0,Diagnosis flag: 0 or 1
+hospital_name,free_text,no,,,Government General Hospital Odisha,Hospital name
+state,categorical,no,Andhra Pradesh|Bihar|Gujarat|Haryana|Karnataka|Kerala|Madhya Pradesh|Maharashtra|Odisha|Punjab|Rajasthan|Tamil Nadu|Telangana|Uttar Pradesh|West Bengal,Andhra Pradesh|Bihar|Gujarat|Haryana|Karnataka|Kerala|Madhya Pradesh|Maharashtra|Odisha|Punjab|Rajasthan|Tamil Nadu|Telangana|Uttar Pradesh|West Bengal,Odisha,Hospital state
+tier,categorical,no,tier1|tier2|tier3,tier1|tier2|tier3,tier2,Hospital tier
+beds,integer,no,,0 to 5000,423,Number of hospital beds
+teaching,boolean,no,TRUE|FALSE,TRUE|FALSE,TRUE,Whether hospital is teaching hospital
+bill_id,string_id,no,,,68e19242-4126-4a7a-afa2-9e6035cdcffa,Unique bill identifier
+total_cost_inr,integer,no,,0 to 100000000,30970.5,Total treatment cost in INR
+govt_subsidy_inr,integer,no,,0 to 100000000,12145.5,Government subsidy amount in INR
+out_of_pocket_inr,integer,no,,0 to 100000000,7636,Out-of-pocket amount in INR
+cost_category,categorical,no,Lab|Others|Pharmacy|Procedure|Room,Lab|Others|Pharmacy|Procedure|Room,Lab,Major cost category

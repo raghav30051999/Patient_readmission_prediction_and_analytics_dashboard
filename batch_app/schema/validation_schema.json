@@ -1,0 +1,1189 @@
+{
+    "version": "1.0",
+    "target_column": "readmitted_30d",
+    "removed_columns": [
+        "readmitted_7d"
+    ],
+    "date_format": "DD-MM-YYYY",
+    "required_columns": [
+        "admission_id",
+        "patient_id",
+        "hospital_id",
+        "admit_date",
+        "discharge_date",
+        "los_days",
+        "age",
+        "gender",
+        "hba1c",
+        "creatinine",
+        "haemoglobin",
+        "systolic_bp"
+    ],
+    "model_required_features": [
+        "num_procedures",
+        "los_days",
+        "total_cost_inr",
+        "govt_subsidy_inr",
+        "out_of_pocket_inr",
+        "charlson_index",
+        "comorbidity_count",
+        "age"
+    ],
+    "prediction_generated_columns": [
+        "predicted_readmission_30d",
+        "predicted_probability",
+        "prediction_status",
+        "label_available"
+    ],
+    "ignore_if_uploaded": [
+        "predicted_readmission_30d",
+        "predicted_probability",
+        "prediction_status",
+        "label_available"
+    ],
+    "columns": {
+        "admission_id": {
+            "data_type": "string_id",
+            "required": true,
+            "allow_blank": false,
+            "allowed_values": null,
+            "min": null,
+            "max": null,
+            "observed_min": null,
+            "observed_max": null,
+            "date_format": null,
+            "description": "Unique admission identifier"
+        },
+        "patient_id": {
+            "data_type": "string_id",
+            "required": true,
+            "allow_blank": false,
+            "allowed_values": null,
+            "min": null,
+            "max": null,
+            "observed_min": null,
+            "observed_max": null,
+            "date_format": null,
+            "description": "Unique patient identifier"
+        },
+        "admit_date": {
+            "data_type": "date",
+            "required": true,
+            "allow_blank": false,
+            "allowed_values": null,
+            "min": null,
+            "max": null,
+            "observed_min": null,
+            "observed_max": null,
+            "date_format": "DD-MM-YYYY",
+            "description": "Patient admission date"
+        },
+        "discharge_date": {
+            "data_type": "date",
+            "required": true,
+            "allow_blank": false,
+            "allowed_values": null,
+            "min": null,
+            "max": null,
+            "observed_min": null,
+            "observed_max": null,
+            "date_format": "DD-MM-YYYY",
+            "description": "Patient discharge date"
+        },
+        "los_days": {
+            "data_type": "integer",
+            "required": true,
+            "allow_blank": false,
+            "allowed_values": null,
+            "min": 0,
+            "max": 365,
+            "observed_min": 1.0,
+            "observed_max": 90.0,
+            "date_format": null,
+            "description": "Length of stay in days"
+        },
+        "admit_type": {
+            "data_type": "categorical",
+            "required": false,
+            "allow_blank": true,
+            "allowed_values": [
+                "Elective",
+                "Emergency",
+                "OPD",
+                "Others"
+            ],
+            "min": null,
+            "max": null,
+            "observed_min": null,
+            "observed_max": null,
+            "date_format": null,
+            "description": "Admission type"
+        },
+        "ward_type": {
+            "data_type": "categorical",
+            "required": false,
+            "allow_blank": true,
+            "allowed_values": [
+                "General",
+                "HDU",
+                "ICU",
+                "NICU",
+                "Others"
+            ],
+            "min": null,
+            "max": null,
+            "observed_min": null,
+            "observed_max": null,
+            "date_format": null,
+            "description": "Ward type"
+        },
+        "hospital_id": {
+            "data_type": "string_id",
+            "required": true,
+            "allow_blank": false,
+            "allowed_values": null,
+            "min": null,
+            "max": null,
+            "observed_min": null,
+            "observed_max": null,
+            "date_format": null,
+            "description": "Unique hospital identifier"
+        },
+        "discharge_type": {
+            "data_type": "categorical",
+            "required": false,
+            "allow_blank": true,
+            "allowed_values": [
+                "Expired",
+                "LAMA",
+                "Others",
+                "Recovered",
+                "Referred"
+            ],
+            "min": null,
+            "max": null,
+            "observed_min": null,
+            "observed_max": null,
+            "date_format": null,
+            "description": "Discharge outcome/status"
+        },
+        "num_procedures": {
+            "data_type": "integer",
+            "required": false,
+            "allow_blank": true,
+            "allowed_values": null,
+            "min": 0,
+            "max": 100,
+            "observed_min": 0.0,
+            "observed_max": 15.0,
+            "date_format": null,
+            "description": "Number of procedures performed"
+        },
+        "charlson_index": {
+            "data_type": "integer",
+            "required": false,
+            "allow_blank": true,
+            "allowed_values": null,
+            "min": 0,
+            "max": 20,
+            "observed_min": 0.0,
+            "observed_max": 6.0,
+            "date_format": null,
+            "description": "Charlson comorbidity index"
+        },
+        "hba1c": {
+            "data_type": "float",
+            "required": true,
+            "allow_blank": false,
+            "allowed_values": null,
+            "min": 3,
+            "max": 20,
+            "observed_min": 4.0,
+            "observed_max": 14.3,
+            "date_format": null,
+            "description": "HbA1c lab value"
+        },
+        "creatinine": {
+            "data_type": "float",
+            "required": true,
+            "allow_blank": false,
+            "allowed_values": null,
+            "min": 0.2,
+            "max": 20,
+            "observed_min": 0.4,
+            "observed_max": 15.0,
+            "date_format": null,
+            "description": "Creatinine lab value"
+        },
+        "haemoglobin": {
+            "data_type": "float",
+            "required": true,
+            "allow_blank": false,
+            "allowed_values": null,
+            "min": 3,
+            "max": 25,
+            "observed_min": 4.0,
+            "observed_max": 18.0,
+            "date_format": null,
+            "description": "Haemoglobin lab value"
+        },
+        "systolic_bp": {
+            "data_type": "float",
+            "required": true,
+            "allow_blank": false,
+            "allowed_values": null,
+            "min": 50,
+            "max": 300,
+            "observed_min": 70.0,
+            "observed_max": 220.0,
+            "date_format": null,
+            "description": "Systolic blood pressure"
+        },
+        "age": {
+            "data_type": "integer",
+            "required": true,
+            "allow_blank": false,
+            "allowed_values": null,
+            "min": 0,
+            "max": 120,
+            "observed_min": 0.0,
+            "observed_max": 95.0,
+            "date_format": null,
+            "description": "Patient age"
+        },
+        "gender": {
+            "data_type": "categorical",
+            "required": true,
+            "allow_blank": false,
+            "allowed_values": [
+                "F",
+                "M",
+                "Other"
+            ],
+            "min": null,
+            "max": null,
+            "observed_min": null,
+            "observed_max": null,
+            "date_format": null,
+            "description": "Patient gender"
+        },
+        "state_x": {
+            "data_type": "categorical",
+            "required": false,
+            "allow_blank": true,
+            "allowed_values": [
+                "Andhra Pradesh",
+                "Bihar",
+                "Gujarat",
+                "Haryana",
+                "Karnataka",
+                "Kerala",
+                "Madhya Pradesh",
+                "Maharashtra",
+                "Odisha",
+                "Punjab",
+                "Rajasthan",
+                "Tamil Nadu",
+                "Telangana",
+                "Uttar Pradesh",
+                "West Bengal"
+            ],
+            "min": null,
+            "max": null,
+            "observed_min": null,
+            "observed_max": null,
+            "date_format": null,
+            "description": "Patient state"
+        },
+        "bpl_card": {
+            "data_type": "boolean",
+            "required": false,
+            "allow_blank": true,
+            "allowed_values": [
+                "TRUE",
+                "FALSE"
+            ],
+            "min": null,
+            "max": null,
+            "observed_min": null,
+            "observed_max": null,
+            "date_format": null,
+            "description": "Whether patient has BPL card"
+        },
+        "insurance_type": {
+            "data_type": "categorical",
+            "required": false,
+            "allow_blank": true,
+            "allowed_values": [
+                "Ayushman",
+                "ESI",
+                "Others",
+                "Private"
+            ],
+            "min": null,
+            "max": null,
+            "observed_min": null,
+            "observed_max": null,
+            "date_format": null,
+            "description": "Insurance type"
+        },
+        "comorbidity_count": {
+            "data_type": "integer",
+            "required": false,
+            "allow_blank": true,
+            "allowed_values": null,
+            "min": 0,
+            "max": 20,
+            "observed_min": 0.0,
+            "observed_max": 8.0,
+            "date_format": null,
+            "description": "Number of comorbidities"
+        },
+        "prev_admissions": {
+            "data_type": "integer",
+            "required": false,
+            "allow_blank": true,
+            "allowed_values": null,
+            "min": 0,
+            "max": 50,
+            "observed_min": 0.0,
+            "observed_max": 8.0,
+            "date_format": null,
+            "description": "Number of previous admissions"
+        },
+        "has_Cardiovascular": {
+            "data_type": "binary",
+            "required": false,
+            "allow_blank": true,
+            "allowed_values": [
+                0,
+                1
+            ],
+            "min": null,
+            "max": null,
+            "observed_min": null,
+            "observed_max": null,
+            "date_format": null,
+            "description": "Comorbidity category flag: 0 or 1"
+        },
+        "has_Endocrine": {
+            "data_type": "binary",
+            "required": false,
+            "allow_blank": true,
+            "allowed_values": [
+                0,
+                1
+            ],
+            "min": null,
+            "max": null,
+            "observed_min": null,
+            "observed_max": null,
+            "date_format": null,
+            "description": "Comorbidity category flag: 0 or 1"
+        },
+        "has_Gastrointestinal": {
+            "data_type": "binary",
+            "required": false,
+            "allow_blank": true,
+            "allowed_values": [
+                0,
+                1
+            ],
+            "min": null,
+            "max": null,
+            "observed_min": null,
+            "observed_max": null,
+            "date_format": null,
+            "description": "Comorbidity category flag: 0 or 1"
+        },
+        "has_Genitourinary": {
+            "data_type": "binary",
+            "required": false,
+            "allow_blank": true,
+            "allowed_values": [
+                0,
+                1
+            ],
+            "min": null,
+            "max": null,
+            "observed_min": null,
+            "observed_max": null,
+            "date_format": null,
+            "description": "Comorbidity category flag: 0 or 1"
+        },
+        "has_Infectious": {
+            "data_type": "binary",
+            "required": false,
+            "allow_blank": true,
+            "allowed_values": [
+                0,
+                1
+            ],
+            "min": null,
+            "max": null,
+            "observed_min": null,
+            "observed_max": null,
+            "date_format": null,
+            "description": "Comorbidity category flag: 0 or 1"
+        },
+        "has_Injury": {
+            "data_type": "binary",
+            "required": false,
+            "allow_blank": true,
+            "allowed_values": [
+                0,
+                1
+            ],
+            "min": null,
+            "max": null,
+            "observed_min": null,
+            "observed_max": null,
+            "date_format": null,
+            "description": "Comorbidity category flag: 0 or 1"
+        },
+        "has_Neoplasm": {
+            "data_type": "binary",
+            "required": false,
+            "allow_blank": true,
+            "allowed_values": [
+                0,
+                1
+            ],
+            "min": null,
+            "max": null,
+            "observed_min": null,
+            "observed_max": null,
+            "date_format": null,
+            "description": "Comorbidity category flag: 0 or 1"
+        },
+        "has_Neurological": {
+            "data_type": "binary",
+            "required": false,
+            "allow_blank": true,
+            "allowed_values": [
+                0,
+                1
+            ],
+            "min": null,
+            "max": null,
+            "observed_min": null,
+            "observed_max": null,
+            "date_format": null,
+            "description": "Comorbidity category flag: 0 or 1"
+        },
+        "has_Obstetric": {
+            "data_type": "binary",
+            "required": false,
+            "allow_blank": true,
+            "allowed_values": [
+                0,
+                1
+            ],
+            "min": null,
+            "max": null,
+            "observed_min": null,
+            "observed_max": null,
+            "date_format": null,
+            "description": "Comorbidity category flag: 0 or 1"
+        },
+        "has_Perinatal": {
+            "data_type": "binary",
+            "required": false,
+            "allow_blank": true,
+            "allowed_values": [
+                0,
+                1
+            ],
+            "min": null,
+            "max": null,
+            "observed_min": null,
+            "observed_max": null,
+            "date_format": null,
+            "description": "Comorbidity category flag: 0 or 1"
+        },
+        "has_Respiratory": {
+            "data_type": "binary",
+            "required": false,
+            "allow_blank": true,
+            "allowed_values": [
+                0,
+                1
+            ],
+            "min": null,
+            "max": null,
+            "observed_min": null,
+            "observed_max": null,
+            "date_format": null,
+            "description": "Comorbidity category flag: 0 or 1"
+        },
+        "dx_acute_myocardial_infarction": {
+            "data_type": "binary",
+            "required": false,
+            "allow_blank": true,
+            "allowed_values": [
+                0,
+                1
+            ],
+            "min": null,
+            "max": null,
+            "observed_min": null,
+            "observed_max": null,
+            "date_format": null,
+            "description": "Diagnosis flag: 0 or 1"
+        },
+        "dx_alcoholic_liver_disease": {
+            "data_type": "binary",
+            "required": false,
+            "allow_blank": true,
+            "allowed_values": [
+                0,
+                1
+            ],
+            "min": null,
+            "max": null,
+            "observed_min": null,
+            "observed_max": null,
+            "date_format": null,
+            "description": "Diagnosis flag: 0 or 1"
+        },
+        "dx_asthma": {
+            "data_type": "binary",
+            "required": false,
+            "allow_blank": true,
+            "allowed_values": [
+                0,
+                1
+            ],
+            "min": null,
+            "max": null,
+            "observed_min": null,
+            "observed_max": null,
+            "date_format": null,
+            "description": "Diagnosis flag: 0 or 1"
+        },
+        "dx_atrial_fibrillation": {
+            "data_type": "binary",
+            "required": false,
+            "allow_blank": true,
+            "allowed_values": [
+                0,
+                1
+            ],
+            "min": null,
+            "max": null,
+            "observed_min": null,
+            "observed_max": null,
+            "date_format": null,
+            "description": "Diagnosis flag: 0 or 1"
+        },
+        "dx_copd": {
+            "data_type": "binary",
+            "required": false,
+            "allow_blank": true,
+            "allowed_values": [
+                0,
+                1
+            ],
+            "min": null,
+            "max": null,
+            "observed_min": null,
+            "observed_max": null,
+            "date_format": null,
+            "description": "Diagnosis flag: 0 or 1"
+        },
+        "dx_cerebral_infarction": {
+            "data_type": "binary",
+            "required": false,
+            "allow_blank": true,
+            "allowed_values": [
+                0,
+                1
+            ],
+            "min": null,
+            "max": null,
+            "observed_min": null,
+            "observed_max": null,
+            "date_format": null,
+            "description": "Diagnosis flag: 0 or 1"
+        },
+        "dx_cholelithiasis": {
+            "data_type": "binary",
+            "required": false,
+            "allow_blank": true,
+            "allowed_values": [
+                0,
+                1
+            ],
+            "min": null,
+            "max": null,
+            "observed_min": null,
+            "observed_max": null,
+            "date_format": null,
+            "description": "Diagnosis flag: 0 or 1"
+        },
+        "dx_chronic_kidney_disease": {
+            "data_type": "binary",
+            "required": false,
+            "allow_blank": true,
+            "allowed_values": [
+                0,
+                1
+            ],
+            "min": null,
+            "max": null,
+            "observed_min": null,
+            "observed_max": null,
+            "date_format": null,
+            "description": "Diagnosis flag: 0 or 1"
+        },
+        "dx_dengue_haemorrhagic_fever": {
+            "data_type": "binary",
+            "required": false,
+            "allow_blank": true,
+            "allowed_values": [
+                0,
+                1
+            ],
+            "min": null,
+            "max": null,
+            "observed_min": null,
+            "observed_max": null,
+            "date_format": null,
+            "description": "Diagnosis flag: 0 or 1"
+        },
+        "dx_disorders_short_gestation": {
+            "data_type": "binary",
+            "required": false,
+            "allow_blank": true,
+            "allowed_values": [
+                0,
+                1
+            ],
+            "min": null,
+            "max": null,
+            "observed_min": null,
+            "observed_max": null,
+            "date_format": null,
+            "description": "Diagnosis flag: 0 or 1"
+        },
+        "dx_diverticular_disease_of_colon": {
+            "data_type": "binary",
+            "required": false,
+            "allow_blank": true,
+            "allowed_values": [
+                0,
+                1
+            ],
+            "min": null,
+            "max": null,
+            "observed_min": null,
+            "observed_max": null,
+            "date_format": null,
+            "description": "Diagnosis flag: 0 or 1"
+        },
+        "dx_epilepsy": {
+            "data_type": "binary",
+            "required": false,
+            "allow_blank": true,
+            "allowed_values": [
+                0,
+                1
+            ],
+            "min": null,
+            "max": null,
+            "observed_min": null,
+            "observed_max": null,
+            "date_format": null,
+            "description": "Diagnosis flag: 0 or 1"
+        },
+        "dx_essential_hypertension": {
+            "data_type": "binary",
+            "required": false,
+            "allow_blank": true,
+            "allowed_values": [
+                0,
+                1
+            ],
+            "min": null,
+            "max": null,
+            "observed_min": null,
+            "observed_max": null,
+            "date_format": null,
+            "description": "Diagnosis flag: 0 or 1"
+        },
+        "dx_fracture_of_femur": {
+            "data_type": "binary",
+            "required": false,
+            "allow_blank": true,
+            "allowed_values": [
+                0,
+                1
+            ],
+            "min": null,
+            "max": null,
+            "observed_min": null,
+            "observed_max": null,
+            "date_format": null,
+            "description": "Diagnosis flag: 0 or 1"
+        },
+        "dx_gastroenteritis_and_colitis": {
+            "data_type": "binary",
+            "required": false,
+            "allow_blank": true,
+            "allowed_values": [
+                0,
+                1
+            ],
+            "min": null,
+            "max": null,
+            "observed_min": null,
+            "observed_max": null,
+            "date_format": null,
+            "description": "Diagnosis flag: 0 or 1"
+        },
+        "dx_heart_failure": {
+            "data_type": "binary",
+            "required": false,
+            "allow_blank": true,
+            "allowed_values": [
+                0,
+                1
+            ],
+            "min": null,
+            "max": null,
+            "observed_min": null,
+            "observed_max": null,
+            "date_format": null,
+            "description": "Diagnosis flag: 0 or 1"
+        },
+        "dx_intracranial_injury": {
+            "data_type": "binary",
+            "required": false,
+            "allow_blank": true,
+            "allowed_values": [
+                0,
+                1
+            ],
+            "min": null,
+            "max": null,
+            "observed_min": null,
+            "observed_max": null,
+            "date_format": null,
+            "description": "Diagnosis flag: 0 or 1"
+        },
+        "dx_malignant_neoplasm_breast": {
+            "data_type": "binary",
+            "required": false,
+            "allow_blank": true,
+            "allowed_values": [
+                0,
+                1
+            ],
+            "min": null,
+            "max": null,
+            "observed_min": null,
+            "observed_max": null,
+            "date_format": null,
+            "description": "Diagnosis flag: 0 or 1"
+        },
+        "dx_malignant_neoplasm_colon": {
+            "data_type": "binary",
+            "required": false,
+            "allow_blank": true,
+            "allowed_values": [
+                0,
+                1
+            ],
+            "min": null,
+            "max": null,
+            "observed_min": null,
+            "observed_max": null,
+            "date_format": null,
+            "description": "Diagnosis flag: 0 or 1"
+        },
+        "dx_malignant_neoplasm_lung": {
+            "data_type": "binary",
+            "required": false,
+            "allow_blank": true,
+            "allowed_values": [
+                0,
+                1
+            ],
+            "min": null,
+            "max": null,
+            "observed_min": null,
+            "observed_max": null,
+            "date_format": null,
+            "description": "Diagnosis flag: 0 or 1"
+        },
+        "dx_maternal_care_uterine_anomaly": {
+            "data_type": "binary",
+            "required": false,
+            "allow_blank": true,
+            "allowed_values": [
+                0,
+                1
+            ],
+            "min": null,
+            "max": null,
+            "observed_min": null,
+            "observed_max": null,
+            "date_format": null,
+            "description": "Diagnosis flag: 0 or 1"
+        },
+        "dx_metabolic_electrolyte_disorder": {
+            "data_type": "binary",
+            "required": false,
+            "allow_blank": true,
+            "allowed_values": [
+                0,
+                1
+            ],
+            "min": null,
+            "max": null,
+            "observed_min": null,
+            "observed_max": null,
+            "date_format": null,
+            "description": "Diagnosis flag: 0 or 1"
+        },
+        "dx_multiple_sclerosis": {
+            "data_type": "binary",
+            "required": false,
+            "allow_blank": true,
+            "allowed_values": [
+                0,
+                1
+            ],
+            "min": null,
+            "max": null,
+            "observed_min": null,
+            "observed_max": null,
+            "date_format": null,
+            "description": "Diagnosis flag: 0 or 1"
+        },
+        "dx_pneumonia_unspecified": {
+            "data_type": "binary",
+            "required": false,
+            "allow_blank": true,
+            "allowed_values": [
+                0,
+                1
+            ],
+            "min": null,
+            "max": null,
+            "observed_min": null,
+            "observed_max": null,
+            "date_format": null,
+            "description": "Diagnosis flag: 0 or 1"
+        },
+        "dx_pulmonary_tuberculosis": {
+            "data_type": "binary",
+            "required": false,
+            "allow_blank": true,
+            "allowed_values": [
+                0,
+                1
+            ],
+            "min": null,
+            "max": null,
+            "observed_min": null,
+            "observed_max": null,
+            "date_format": null,
+            "description": "Diagnosis flag: 0 or 1"
+        },
+        "dx_respiratory_distress_newborn": {
+            "data_type": "binary",
+            "required": false,
+            "allow_blank": true,
+            "allowed_values": [
+                0,
+                1
+            ],
+            "min": null,
+            "max": null,
+            "observed_min": null,
+            "observed_max": null,
+            "date_format": null,
+            "description": "Diagnosis flag: 0 or 1"
+        },
+        "dx_respiratory_failure": {
+            "data_type": "binary",
+            "required": false,
+            "allow_blank": true,
+            "allowed_values": [
+                0,
+                1
+            ],
+            "min": null,
+            "max": null,
+            "observed_min": null,
+            "observed_max": null,
+            "date_format": null,
+            "description": "Diagnosis flag: 0 or 1"
+        },
+        "dx_sepsis": {
+            "data_type": "binary",
+            "required": false,
+            "allow_blank": true,
+            "allowed_values": [
+                0,
+                1
+            ],
+            "min": null,
+            "max": null,
+            "observed_min": null,
+            "observed_max": null,
+            "date_format": null,
+            "description": "Diagnosis flag: 0 or 1"
+        },
+        "dx_single_spontaneous_delivery": {
+            "data_type": "binary",
+            "required": false,
+            "allow_blank": true,
+            "allowed_values": [
+                0,
+                1
+            ],
+            "min": null,
+            "max": null,
+            "observed_min": null,
+            "observed_max": null,
+            "date_format": null,
+            "description": "Diagnosis flag: 0 or 1"
+        },
+        "dx_type_1_diabetes_mellitus": {
+            "data_type": "binary",
+            "required": false,
+            "allow_blank": true,
+            "allowed_values": [
+                0,
+                1
+            ],
+            "min": null,
+            "max": null,
+            "observed_min": null,
+            "observed_max": null,
+            "date_format": null,
+            "description": "Diagnosis flag: 0 or 1"
+        },
+        "dx_type_2_diabetes_mellitus": {
+            "data_type": "binary",
+            "required": false,
+            "allow_blank": true,
+            "allowed_values": [
+                0,
+                1
+            ],
+            "min": null,
+            "max": null,
+            "observed_min": null,
+            "observed_max": null,
+            "date_format": null,
+            "description": "Diagnosis flag: 0 or 1"
+        },
+        "dx_unspecified_injury": {
+            "data_type": "binary",
+            "required": false,
+            "allow_blank": true,
+            "allowed_values": [
+                0,
+                1
+            ],
+            "min": null,
+            "max": null,
+            "observed_min": null,
+            "observed_max": null,
+            "date_format": null,
+            "description": "Diagnosis flag: 0 or 1"
+        },
+        "dx_unspecified_malaria": {
+            "data_type": "binary",
+            "required": false,
+            "allow_blank": true,
+            "allowed_values": [
+                0,
+                1
+            ],
+            "min": null,
+            "max": null,
+            "observed_min": null,
+            "observed_max": null,
+            "date_format": null,
+            "description": "Diagnosis flag: 0 or 1"
+        },
+        "dx_urinary_tract_infection": {
+            "data_type": "binary",
+            "required": false,
+            "allow_blank": true,
+            "allowed_values": [
+                0,
+                1
+            ],
+            "min": null,
+            "max": null,
+            "observed_min": null,
+            "observed_max": null,
+            "date_format": null,
+            "description": "Diagnosis flag: 0 or 1"
+        },
+        "hospital_name": {
+            "data_type": "free_text",
+            "required": false,
+            "allow_blank": true,
+            "allowed_values": null,
+            "min": null,
+            "max": null,
+            "observed_min": null,
+            "observed_max": null,
+            "date_format": null,
+            "description": "Hospital name"
+        },
+        "state": {
+            "data_type": "categorical",
+            "required": false,
+            "allow_blank": true,
+            "allowed_values": [
+                "Andhra Pradesh",
+                "Bihar",
+                "Gujarat",
+                "Haryana",
+                "Karnataka",
+                "Kerala",
+                "Madhya Pradesh",
+                "Maharashtra",
+                "Odisha",
+                "Punjab",
+                "Rajasthan",
+                "Tamil Nadu",
+                "Telangana",
+                "Uttar Pradesh",
+                "West Bengal"
+            ],
+            "min": null,
+            "max": null,
+            "observed_min": null,
+            "observed_max": null,
+            "date_format": null,
+            "description": "Hospital state"
+        },
+        "tier": {
+            "data_type": "categorical",
+            "required": false,
+            "allow_blank": true,
+            "allowed_values": [
+                "tier1",
+                "tier2",
+                "tier3"
+            ],
+            "min": null,
+            "max": null,
+            "observed_min": null,
+            "observed_max": null,
+            "date_format": null,
+            "description": "Hospital tier"
+        },
+        "beds": {
+            "data_type": "integer",
+            "required": false,
+            "allow_blank": true,
+            "allowed_values": null,
+            "min": 0,
+            "max": 5000,
+            "observed_min": 61.0,
+            "observed_max": 1018.0,
+            "date_format": null,
+            "description": "Number of hospital beds"
+        },
+        "teaching": {
+            "data_type": "boolean",
+            "required": false,
+            "allow_blank": true,
+            "allowed_values": [
+                "TRUE",
+                "FALSE"
+            ],
+            "min": null,
+            "max": null,
+            "observed_min": null,
+            "observed_max": null,
+            "date_format": null,
+            "description": "Whether hospital is teaching hospital"
+        },
+        "bill_id": {
+            "data_type": "string_id",
+            "required": false,
+            "allow_blank": true,
+            "allowed_values": null,
+            "min": null,
+            "max": null,
+            "observed_min": null,
+            "observed_max": null,
+            "date_format": null,
+            "description": "Unique bill identifier"
+        },
+        "total_cost_inr": {
+            "data_type": "integer",
+            "required": false,
+            "allow_blank": true,
+            "allowed_values": null,
+            "min": 0,
+            "max": 100000000,
+            "observed_min": 649.0,
+            "observed_max": 6674008.0,
+            "date_format": null,
+            "description": "Total treatment cost in INR"
+        },
+        "govt_subsidy_inr": {
+            "data_type": "integer",
+            "required": false,
+            "allow_blank": true,
+            "allowed_values": null,
+            "min": 0,
+            "max": 100000000,
+            "observed_min": 0.0,
+            "observed_max": 4606120.0,
+            "date_format": null,
+            "description": "Government subsidy amount in INR"
+        },
+        "out_of_pocket_inr": {
+            "data_type": "integer",
+            "required": false,
+            "allow_blank": true,
+            "allowed_values": null,
+            "min": 0,
+            "max": 100000000,
+            "observed_min": 0.0,
+            "observed_max": 4648583.0,
+            "date_format": null,
+            "description": "Out-of-pocket amount in INR"
+        },
+        "cost_category": {
+            "data_type": "categorical",
+            "required": false,
+            "allow_blank": true,
+            "allowed_values": [
+                "Lab",
+                "Others",
+                "Pharmacy",
+                "Procedure",
+                "Room"
+            ],
+            "min": null,
+            "max": null,
+            "observed_min": null,
+            "observed_max": null,
+            "date_format": null,
+            "description": "Major cost category"
+        }
+    },
+    "cross_checks": [
+        {
+            "rule": "admit_date <= discharge_date",
+            "description": "Admission date must be before or equal to discharge date."
+        },
+        {
+            "rule": "los_days >= 0",
+            "description": "Length of stay cannot be negative."
+        }
+    ]
+}

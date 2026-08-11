@@ -276,50 +276,21 @@ with tab1:
 # ===========================================================
 
 with tab2:
-
     st.markdown(
         """
-<div style="
-padding:40px;
-border-radius:18px;
-background:#FFFFFF;
-border:1px solid #E5E7EB;
-text-align:center;
-margin-top:20px;
-">
-
-<h2 style="color:#0F172A;">
-🚧 Batch Prediction
-</h2>
-
-<p style="
-font-size:18px;
-color:#64748B;
-margin-top:10px;
-">
-
-This feature is currently under development.
-
-</p>
-
-<p style="
-color:#94A3B8;
-font-size:15px;
-max-width:650px;
-margin:auto;
-line-height:1.8;
-">
-
-Batch Prediction will allow healthcare professionals to upload a CSV file
-containing multiple patient records and generate readmission predictions
-for all patients in a single click.
-
-This feature will be available in a future release.
-
-</p>
-
-</div>
-""",
+        <div style="padding:40px; border-radius:18px; background:#FFFFFF; border:1px solid #E5E7EB; text-align:center; margin-top:20px;">
+            <h2 style="color:#0F172A;">📤 Batch Prediction</h2>
+            <p style="font-size:18px; color:#64748B; margin-top:10px;">
+                Upload a CSV file containing multiple patient records to generate
+                readmission predictions, cleaning reports, and evaluation metrics at scale.
+            </p>
+            <a href="https://YOUR-BATCH-APP-URL.streamlit.app" target="_blank" style="text-decoration:none;">
+                <div style="margin-top:20px; background:linear-gradient(135deg,#6366F1,#4F46E5); color:white; padding:12px 28px; border-radius:12px; display:inline-block; font-weight:600; font-size:16px; box-shadow:0 4px 14px rgba(99,102,241,0.25);">
+                    🚀 Launch Batch Processing App
+                </div>
+            </a>
+        </div>
+        """,
         unsafe_allow_html=True
     )
 # ==========================================================
