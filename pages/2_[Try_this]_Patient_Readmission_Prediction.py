@@ -284,7 +284,7 @@ with tab2:
                 Upload a CSV file containing multiple patient records to generate
                 readmission predictions, cleaning reports, and evaluation metrics at scale.
             </p>
-            <a href="https://YOUR-BATCH-APP-URL.streamlit.app" target="_blank" style="text-decoration:none;">
+            <a href="https://patientreadmissionpredictionandanalyticsdashboard-nztz3biv2bb5.streamlit.app/" target="_blank" style="text-decoration:none;">
                 <div style="margin-top:20px; background:linear-gradient(135deg,#6366F1,#4F46E5); color:white; padding:12px 28px; border-radius:12px; display:inline-block; font-weight:600; font-size:16px; box-shadow:0 4px 14px rgba(99,102,241,0.25);">
                     🚀 Launch Batch Processing App
                 </div>
