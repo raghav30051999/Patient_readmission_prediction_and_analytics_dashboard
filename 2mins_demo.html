@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hospital Readmission Intelligence Platform</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+--bg:#F8FAFC;--card:#FFFFFF;--border:#E8EDF5;--navy:#0F172A;--slate:#64748B;--text:#334155;
+--indigo:#6366F1;--indigo-dark:#4F46E5;--teal:#14B8A6;--amber:#F59E0B;--rose:#F43F5E;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html, body { height: 100vh; overflow: hidden; }
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text)}
+a{text-decoration:none}
+
+header{background:linear-gradient(180deg,#0F172A,#1E293B);padding:16px 40px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px; height: 70px;}
+header h1{color:#F8FAFC;font-size:20px;font-weight:800;letter-spacing:-0.3px}
+header p{color:#94A3B8;font-size:12px;margin-top:2px}
+.btn{padding:8px 16px;border-radius:10px;font-weight:600;font-size:13px;color:#fff;background:linear-gradient(135deg,var(--indigo),var(--indigo-dark));box-shadow:0 4px 14px rgba(99,102,241,.25)}
+.btn.ghost{background:transparent;border:1.5px solid rgba(255,255,255,.35);box-shadow:none}
+
+.layout{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,2fr);gap:20px;padding:20px 40px;max-width:2000px;margin:0 auto; height: calc(100vh - 70px); overflow: hidden;}
+
+.app-panel{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:0 1px 3px rgba(15,23,42,.04),0 4px 12px rgba(15,23,42,.03);display:flex;flex-direction:column; height: 100%;}
+.panel-head{display:flex;align-items:center;gap:10px;padding:12px 20px;border-bottom:1px solid var(--border);font-weight:700;color:var(--navy); font-size: 14px;}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--indigo)}
+
+/* Section indicator dots */
+.dots{margin-left:auto;display:flex;gap:6px}
+.dots span{width:8px;height:8px;border-radius:50%;background:#E2E8F0;cursor:pointer;transition:all .3s ease}
+.dots span.active{background:var(--indigo);transform:scale(1.25)}
+
+.app-panel iframe{width:100%;border:none;flex: 1;background:#fff}
+
+/* =====================================================
+RIGHT PANEL : full-page scroll snap, scrollbar hidden
+===================================================== */
+.info-panel{
+  height:100%;
+  overflow-y:auto;
+  scroll-snap-type:y mandatory;
+  scroll-behavior:smooth;
+  scrollbar-width:none;          /* Firefox */
+  -ms-overflow-style:none;       /* IE/Edge */
+}
+.info-panel::-webkit-scrollbar{ display:none; }  /* Chrome/Safari */
+
+.page{
+  height:100%;
+  scroll-snap-align:start;
+  scroll-snap-stop:always;
+  padding:6px 0;
+}
+
+.card-page{
+  height:100%;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:24px 26px;
+  box-shadow:0 1px 3px rgba(15,23,42,.04);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  position:relative;
+  overflow:hidden;
+  cursor:pointer;
+  transition:border-color .3s ease, box-shadow .3s ease;
+}
+.page.active .card-page{
+  border-color:var(--indigo);
+  box-shadow:0 4px 16px rgba(99,102,241,0.15);
+}
+
+.card-page h2{font-size:16px;color:var(--navy);display:flex;align-items:center;gap:8px;margin-bottom:10px;font-weight:700;}
+.card-icon{font-size:20px;}
+.card-page p{font-size:14px;line-height:1.6;color:var(--slate);margin-bottom:6px;text-align:justify;}
+.card-page ul{margin:6px 0 0 16px;font-size:14px;line-height:1.7;color:var(--text);text-align:justify;}
+.card-page li{margin-bottom:3px;text-align:justify;}
+.card-page a{color:var(--indigo);font-weight:600;}
+
+.chips{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;}
+.chip{background:#EEF2FF;border:1px solid #E0E7FF;border-radius:8px;padding:4px 10px;font-size:11px;}
+.chip .label{font-weight:600;color:var(--slate);margin-right:4px;}
+.chip .value{font-weight:800;color:var(--indigo-dark);}
+.chip.teal{background:#F0FDFA;border-color:#CCFBF1}.chip.teal .value{color:#0F766E}
+.chip.amber{background:#FFFBEB;border-color:#FDE68A}.chip.amber .value{color:#B45309}
+
+.flow{display:flex;flex-wrap:wrap;gap:4px;align-items:center;margin-top:8px;font-size:11px;font-weight:600;color:var(--indigo-dark)}
+.flow span{background:#EEF2FF;border:1px solid #E0E7FF;border-radius:6px;padding:3px 8px}
+
+.scroll-hint{
+  position:absolute;bottom:12px;left:50%;transform:translateX(-50%);
+  color:#94A3B8;font-size:11px;font-weight:600;letter-spacing:.5px;
+  animation:bounce 1.6s infinite;
+}
+@keyframes bounce{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,4px)}}
+
+@media(max-width:1000px){
+  html, body { height: auto; overflow: auto; }
+  .layout{grid-template-columns:1fr; height: auto; overflow: visible;}
+  .info-panel{height:auto; overflow:visible; scroll-snap-type:none;}
+  .page{height:auto; scroll-snap-align:none;}
+  .card-page{height:auto;}
+}
+
+/* =====================================================
+FORCE ALL TEXT TO BLACK
+===================================================== */
+body,
+.panel-head,
+.card-page h2,
+.card-page p,
+.card-page ul,
+.card-page li,
+.card-page a,
+.chip,
+.chip .label,
+.chip .value,
+.chip.teal .value,
+.chip.amber .value,
+.flow,
+.flow span,
+.scroll-hint{
+  color:#000000 !important;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>🏥 Hospital Readmission Intelligence Platform</h1>
+  </div>
+  <div>
+    <a class="btn ghost" href="https://github.com/raghav30051999/Patient_readmission_prediction_and_analytics_dashboard" target="_blank">GitHub Repo</a>
+  </div>
+</header>
+
+<main class="layout">
+
+  <!-- LEFT : INTERACTIVE EMBEDDED APP -->
+  <section class="app-panel">
+    <div class="panel-head">
+      <span class="dot"></span> Live Application View
+      <div class="dots">
+        <span class="active" onclick="goTo(0)"></span>
+        <span onclick="goTo(1)"></span>
+        <span onclick="goTo(2)"></span>
+        <span onclick="goTo(3)"></span>
+        <span onclick="goTo(4)"></span>
+      </div>
+    </div>
+    <iframe id="appFrame" src="https://patient-readmission-prediction-and-dashboard.streamlit.app/?embed=true" title="Streamlit App"></iframe>
+  </section>
+
+  <!-- RIGHT : FULL-PAGE SCROLL SECTIONS (5 CARDS) -->
+  <aside class="info-panel" id="infoPanel">
+
+    <!-- CARD 1 : HOME -->
+    <section class="page active" data-page="home">
+      <div class="card-page">
+        <h2>Project Overview</h2>
+        <p>Hospital readmissions are one of the biggest challenges faced by healthcare providers worldwide. Unplanned readmissions increase treatment costs, occupy hospital resources, and often indicate poor continuity of patient care.
+        The Patient Readmission Prediction is a ML prediction of readmission of patient within 30days. The main functionality of each page in this project is described below:</p>
+        <ul>
+          <li><b>Analytics Dashboard: </b>Helps clinicians and hospital administrators make quick, data-driven decisions by providing valuable insights into patient volume, age-wise and gender-wise distribution, along with a range of financial and clinical metrics.</li>
+          <li><b>Readmission Prediction :</b>Using a Pre-trained Machine Learning model, the probability of readmission of patient within 30days is predicted along with appropriate recommendations.</li>
+        </ul>
+        <div class="scroll-hint">SCROLL ▼</div>
+      </div>
+    </section>
+
+    <!-- CARD 2 : DASHBOARD -->
+    <section class="page" data-page="dashboard">
+      <div class="card-page">
+        <h2><span class="card-icon">📊</span> Executive Dashboard</h2>
+        <p>High-value insights are organized across the following sections:<br>
+        <b>Executive Overview</b> – Summarizes key metrics including readmission rate, average length of stay, average hospitalization cost, and patient age profile.<br>
+        <b>Patient Demographics</b> – Presents the age and gender distribution of all patients.<br>
+        <b>Hospital Operations</b> – Analyzes admission patterns across Emergency, Elective, and Outpatient (OPD) channels, along with patient distribution across General, ICU, HDU, and NICU wards.<br>
+        <b>Financial Insights</b> – Highlights the hospitalization cost distribution across spending brackets and identifies the highest-revenue cost categories among Pharmacy, Lab, Room, and Procedure.<br>
+        <b>Clinical Risk Factors</b> – Examines the relationship between clinical indicators like length of stay, Charlson index and 30-day readmission rates.<br>
+        <b>Readmission Insights</b> – Compares 30-day readmission rates across age groups and comorbidity (disease) counts.<br>
+        </p>
+        <div class="scroll-hint">SCROLL ▼</div>
+      </div>
+    </section>
+
+    <!-- CARD 3 : SINGLE PREDICTION -->
+    <section class="page" data-page="prediction">
+      <div class="card-page">
+        <h2><span class="card-icon">🩺</span> Single Patient Readmission Prediction</h2>
+        <p><b>Prediction: </b> The following Patient data will be collected :<br>   
+        <ul>
+        <li><b>Demographic details:</b>Age, Gender, Length of Stay, Charlson Index - weighted average score based on diseases, Comorbidity Index - Number of diseases, Number of Procedures etc.,</li>
+        <li><b>Clinical history:</b>HBA1C, Creatinine, Systolic Blood Pressure</li>
+        <li><b>Healthcare expenditure:</b>Total Cost incurred along with bifurcation of Government-Subsidy and Out-of-the-Pocket cost.<br></li></ul>
+        <p>Based on these factors, a pre-trained Machine Learning model will predict whether the patient is likely to be readmitted to the hospital within 30 days.</p>
+        <div class="scroll-hint">SCROLL ▼</div>
+      </div>
+    </section>
+
+    <!-- CARD 4 : BATCH -->
+    <section class="page" data-page="batch">
+  <div class="card-page">
+    <h2><span class="card-icon">📤</span> Batch Processing </h2>
+    <p>end-to-end pipeline for batch processing.<br>Instead of single patient, we want to predict readmission probability for a group of patients then batch prediction comes into picture. The workflow is as follows:</p>
+    <div class="flow">
+      <span>Upload</span>→<span>Validate</span>→<span>Clean</span>→<span>Predict</span>→<span>Evaluate</span>
+    </div>
+    <p style="margin-top:10px;"><b>Batch Prediction:</b> Upload a CSV containing multiple admission records to generate readmission risk for all patients in a single run. The pipeline automatically:</p>
+    <ul>
+      <li><b>Validates</b> the file against the hospital schema (columns, types, ranges, allowed values).</li>
+      <li><b>Cleans</b> and standardizes dates, missing values, and diagnosis/financial flags.</li>
+      <li><b>Predicts</b> the 30-day readmission probability for the entire patients.</li>
+      <b>(Templates and reference sheets are provided to ensure consistency and uniformity in data processing.)</b>
+    </ul>
+    <div class="scroll-hint">SCROLL ▼</div>
+  </div>
+</section>
+
+    <!-- CARD 5 : ABOUT -->
+    <section class="page" data-page="about">
+      <div class="card-page">
+        <h2><span class="card-icon">ℹ️</span> Project Info & Stack</h2>
+        <p>Built with Python, Machine Learning, Streamlit.</p>
+        <ul>
+          <li><strong>Developer:</strong> Sri Raghavendra Puvvula</li>
+          <li><strong>Github Repo link:</strong> <a href="https://github.com/raghav30051999/Patient_readmission_prediction_and_analytics_dashboard" target="_blank" onclick="event.stopPropagation()">https://github...</a>
+        </ul>
+      </div>
+    </section>
+
+  </aside>
+</main>
+
+<script>
+// Keys match the data-page attributes exactly
+const PAGES = {
+  home: "https://patient-readmission-prediction-and-dashboard.streamlit.app/?embed=true",
+  dashboard: "https://patient-readmission-prediction-and-dashboard.streamlit.app/Dashboard?embed=true",
+  prediction: "https://patient-readmission-prediction-and-dashboard.streamlit.app/%5BTry_this%5D_Patient_Readmission_Prediction?embed=true",
+  batch: "https://patientreadmissionpredictionandanalyticsdashboard-nztz3biv2bb5.streamlit.app/?embed=true",
+  about: "https://patient-readmission-prediction-and-dashboard.streamlit.app/About?embed=true"
+};
+
+const panel  = document.getElementById('infoPanel');
+const pages  = Array.from(document.querySelectorAll('.page'));
+const dots   = Array.from(document.querySelectorAll('.dots span'));
+let currentPage = 'home';
+
+function setPage(key){
+  if(key === currentPage) return;
+  currentPage = key;
+
+  // Sync left iframe (only if URL changes to prevent flickering)
+  const newUrl = PAGES[key];
+  const iframe = document.getElementById('appFrame');
+  if(iframe.src !== newUrl) {
+    iframe.src = newUrl;
+  }
+
+  // Sync active styling + dots
+  pages.forEach(p => p.classList.toggle('active', p.dataset.page === key));
+  dots.forEach((d,i) => d.classList.toggle('active', pages[i].dataset.page === key));
+}
+
+// Find which section is currently in view (works for snap scroll)
+function activeIndex(){
+  const rect   = panel.getBoundingClientRect();
+  const center = rect.top + rect.height / 2;
+  let best = 0, bestDist = Infinity;
+
+  pages.forEach((p,i) => {
+    const r = p.getBoundingClientRect();
+    const d = Math.abs((r.top + r.height / 2) - center);
+    if(d < bestDist){ bestDist = d; best = i; }
+  });
+  return best;
+}
+
+function update(){ 
+  const idx = activeIndex();
+  if(pages[idx]) {
+    setPage(pages[idx].dataset.page); 
+  }
+}
+
+panel.addEventListener('scroll', update, {passive:true});
+window.addEventListener('scroll', update, {passive:true});
+
+// Jump to a section (dots / card click)
+function goTo(i){
+  panel.scrollTo({ top: i * panel.clientHeight, behavior: 'smooth' });
+}
+
+pages.forEach((p,i) => {
+  p.addEventListener('click', e => {
+    if(e.target.closest('a')) return;   // don't hijack real links
+    goTo(i);
+  });
+});
+</script>
+
+</body>
+</html>
