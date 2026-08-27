@@ -1,6 +1,8 @@
 # 🏥 Patient Readmission Prediction using Machine Learning (ML) along with Analytics Dashboard
 
-No time! want a quick 2Mins_Demo ?  [![Live Demo](https://img.shields.io/badge/%20Live%20Demo-Try%20Now-red?style=for-the-badge&logo=streamlit)](https://raghav30051999.github.io/Patient_readmission_prediction_and_analytics_dashboard/)
+No time! want a quick 2Mins_Demo ? 
+
+ [![Live Demo](https://img.shields.io/badge/%20Live%20Demo-Try%20Now-red?style=for-the-badge&logo=streamlit)](https://raghav30051999.github.io/Patient_readmission_prediction_and_analytics_dashboard/)
 
 Wanna try this ? 
 
