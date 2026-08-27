@@ -31,7 +31,7 @@ The model is trained on this comprehensive dataset, which includes demographic, 
 * **Email ID:** raghavnaveen111@gmail.com
 
 ### Project Documentation
-* **GitHub Repository:** [Dummy Link to Project Documentation](#)
+* **GitHub Repository:** [https://github.com/raghav30051999/Patient_readmission_prediction_and_analytics_dashboard/tree/main/Technical%20Documentation](#)
 
 </div>
 """, unsafe_allow_html=True)
