@@ -1,8 +1,14 @@
 # 🏥 Patient Readmission Prediction using Machine Learning (ML) along with Analytics Dashboard
 
+No time! want a quick 2Mins_Demo ?  [![Live Demo](https://img.shields.io/badge/%20Live%20Demo-Try%20Now-red?style=for-the-badge&logo=streamlit)](https://raghav30051999.github.io/Patient_readmission_prediction_and_analytics_dashboard/)
+
 Wanna try this ? 
 
 [![Live Demo](https://img.shields.io/badge/%20Live%20Demo-Try%20Now-red?style=for-the-badge&logo=streamlit)](https://patient-readmission-prediction-and-dashboard.streamlit.app/)
+
+**Note:** The demo is hosted on Streamlit Community Cloud.
+> **If the app has been inactive for a while, it may be temporarily**
+> hibernated. Click **"Yes, get this app back up!"** to launch it.
  
 
 ---
@@ -178,11 +184,13 @@ Detailed project documentation is available in:
 
 ## 📌 Future Enhancements
 
-- **Batch-wise patient readmission prediction**
-- **Continuous learning and adaptation to evolving trends upon dataset updates.**
-- Real-time prediction APIs
-- Physician recommendation engine
-- LLM-based recommendations
+- **Continous dataset upgradation and Autonomous Model training using AI agents**.
+- **Several Trend predictions and recommendations using AI**.
+- Real-time patient monitoring.
+- SHAP-based prediction explanations within the application.
+- REST API for external integration.
+- Multi-hospital analytics dashboard.
+- LLM-powered clinical decision support.
   
 
 ---
